@@ -39,6 +39,11 @@ public class DePaulBookstoreAITest {
                 .setRecordVideoDir(Paths.get("videos/"))
                 .setRecordVideoSize(1280, 720));
         page = context.newPage();
+        
+        // Set longer timeout for CI environments
+        page.setDefaultTimeout(60000); // 60 seconds
+        page.setDefaultNavigationTimeout(60000);
+        
         context.clearCookies();
     }
 
@@ -50,29 +55,35 @@ public class DePaulBookstoreAITest {
     @Test
     @DisplayName("Complete DePaul Bookstore Purchase Flow")
     public void testBookstorePurchaseFlow() {
-        // Step 1: Navigate and search
-        navigateAndSearch();
-        
-        // Step 2: Apply filters
-        applyProductFilters();
-        
-        // Step 3: Select product and add to cart
-        selectProductAndAddToCart();
-        
-        // Step 4: Verify cart and proceed
-        verifyCartAndProceed();
-        
-        // Step 5: Guest checkout
-        proceedAsGuest();
-        
-        // Step 6: Enter contact information
-        enterContactInformation();
-        
-        // Step 7: Verify pickup information
-        verifyPickupInformation();
-        
-        // Step 8: Navigate back and clean up
-        navigateBackAndCleanup();
+        try {
+            // Step 1: Navigate and search
+            navigateAndSearch();
+            
+            // Step 2: Apply filters
+            applyProductFilters();
+            
+            // Step 3: Select product and add to cart
+            selectProductAndAddToCart();
+            
+            // Step 4: Verify cart and proceed
+            verifyCartAndProceed();
+            
+            // Step 5: Guest checkout
+            proceedAsGuest();
+            
+            // Step 6: Enter contact information
+            enterContactInformation();
+            
+            // Step 7: Verify pickup information
+            verifyPickupInformation();
+            
+            // Step 8: Navigate back and clean up
+            navigateBackAndCleanup();
+        } catch (Exception e) {
+            System.err.println("Test failed due to: " + e.getMessage());
+            System.err.println("Note: Tests may fail if DePaul website structure has changed");
+            throw e;
+        }
     }
 
     private void navigateAndSearch() {

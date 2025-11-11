@@ -48,6 +48,10 @@ public class DePaulBookstoreTest {
         
         page = context.newPage();
         
+        // Set longer timeout for CI environments
+        page.setDefaultTimeout(60000); // 60 seconds
+        page.setDefaultNavigationTimeout(60000);
+        
         // Clear cookies and storage to ensure clean state
         context.clearCookies();
     }
@@ -62,26 +66,32 @@ public class DePaulBookstoreTest {
     @Test
     @DisplayName("Complete Purchase Pathway Test for DePaul Bookstore")
     public void testCompletePurchasePathway() throws InterruptedException {
-        // Test Case 1: Bookstore - Search and Filter
-        testCase1_Bookstore();
-        
-        // Test Case 2: Shopping Cart Page
-        testCase2_ShoppingCartPage();
-        
-        // Test Case 3: Create Account Page
-        testCase3_CreateAccountPage();
-        
-        // Test Case 4: Contact Information Page
-        testCase4_ContactInformationPage();
-        
-        // Test Case 5: Pickup Information
-        testCase5_PickupInformation();
-        
-        // Test Case 6: Payment Information
-        testCase6_PaymentInformation();
-        
-        // Test Case 7: Delete from Cart
-        testCase7_DeleteFromCart();
+        try {
+            // Test Case 1: Bookstore - Search and Filter
+            testCase1_Bookstore();
+            
+            // Test Case 2: Shopping Cart Page
+            testCase2_ShoppingCartPage();
+            
+            // Test Case 3: Create Account Page
+            testCase3_CreateAccountPage();
+            
+            // Test Case 4: Contact Information Page
+            testCase4_ContactInformationPage();
+            
+            // Test Case 5: Pickup Information
+            testCase5_PickupInformation();
+            
+            // Test Case 6: Payment Information
+            testCase6_PaymentInformation();
+            
+            // Test Case 7: Delete from Cart
+            testCase7_DeleteFromCart();
+        } catch (Exception e) {
+            System.err.println("Test failed due to: " + e.getMessage());
+            System.err.println("Note: Tests may fail if DePaul website structure has changed");
+            throw e;
+        }
     }
 
     /**
