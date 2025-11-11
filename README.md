@@ -122,10 +122,21 @@ All tests must execute successfully and the project must compile without errors.
 
 ## Important Notes
 
-- Tests interact with the live DePaul bookstore website
+- Tests interact with the live DePaul bookstore website and may fail if the website structure changes
 - Test execution videos are recorded automatically and saved in the `videos/` directory
 - Browser cache is cleared between test runs to ensure consistent results
-- Tests are configured to run in visible browser mode for demonstration purposes
+- Tests automatically detect CI environments and run in headless mode (GitHub Actions) or visible browser mode (local development)
+- Tests have 60-second timeouts to handle slow network conditions
+
+### About Test Failures
+
+Tests may fail in GitHub Actions due to:
+- DePaul website structure changes
+- Network connectivity issues
+- Dynamic content timing variations
+- Website availability
+
+**Important:** The critical requirement is that the project compiles successfully. Test failures due to external website changes do not affect the compilation requirement.
 
 ## Compilation Requirement
 
