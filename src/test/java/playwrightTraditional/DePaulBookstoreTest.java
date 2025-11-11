@@ -21,9 +21,11 @@ public class DePaulBookstoreTest {
     @BeforeAll
     static void launchBrowser() {
         playwright = Playwright.create();
+        // Run headless in CI environments, headed locally
+        boolean isCI = System.getenv("CI") != null;
         browser = playwright.chromium().launch(new BrowserType.LaunchOptions()
-                .setHeadless(false)
-                .setSlowMo(100));
+                .setHeadless(isCI)
+                .setSlowMo(isCI ? 0 : 100));
     }
 
     @AfterAll
