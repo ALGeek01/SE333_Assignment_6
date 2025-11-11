@@ -23,21 +23,48 @@ jobs:
         distribution: 'temurin'
         cache: maven
         
-    - name: Install Playwright dependencies
+    - name: Display Environment Info
       run: |
-        mvn clean install -DskipTests
+        echo "=== Environment Information ==="
+        java -version
+        mvn --version
+        echo "=== System Information ==="
+        uname -a
+        echo "==========================="
+        
+    - name: Verify Project Compilation
+      run: |
+        echo "=== Compiling Project ==="
+        mvn clean compile
+        echo "✅ Compilation successful!"
+        
+    - name: Install Dependencies
+      run: |
+        echo "=== Installing Maven Dependencies ==="
+        mvn install -DskipTests
+        
+    - name: Install Playwright Browsers
+      run: |
+        echo "=== Installing Playwright Browsers ==="
         mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install --with-deps"
         
     - name: Run Traditional Playwright Tests
-      run: mvn test -Dtest=playwrightTraditional.DePaulBookstoreTest
+      run: |
+        echo "=== Running Traditional Tests ==="
+        mvn test -Dtest=playwrightTraditional.DePaulBookstoreTest
       continue-on-error: true
       
     - name: Run AI-Assisted Playwright Tests
-      run: mvn test -Dtest=playwrightLLM.DePaulBookstoreAITest
+      run: |
+        echo "=== Running AI-Assisted Tests ==="
+        mvn test -Dtest=playwrightLLM.DePaulBookstoreAITest
       continue-on-error: true
       
     - name: Run All Tests
-      run: mvn test
+      run: |
+        echo "=== Running Complete Test Suite ==="
+        mvn test
+        echo "=== Test Execution Complete ==="
       
     - name: Upload test videos
       if: always()
