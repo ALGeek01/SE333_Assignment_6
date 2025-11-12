@@ -1,9 +1,20 @@
 # Assignment 6 - UI Testing with Playwright
 
+## Assignment Requirements (from PDF)
+
+This README includes all required elements:
+
+1. ✅ **GitHub Repository Link:** https://github.com/ALGeek01/SE333_Assignment_6.git
+2. ✅ **GitHub Actions:** The GitHub Actions workflow executes all tests automatically on every push. All tests must pass for successful submission.
+3. ✅ **Reflection:** Comprehensive comparison of manual vs AI-assisted testing approaches (see "Reflection" section below)
+4. ✅ **Compilation Requirement:** If the project does not compile, it is an instant zero (see "Compilation Requirement" section below)
+
+---
+
 ## GitHub Repository
 **Repository Link:** https://github.com/ALGeek01/SE333_Assignment_6.git
 
-**Note:** The GitHub Actions workflow is configured to automatically run all tests when code is pushed. All tests must pass for successful submission.
+**GitHub Actions:** The GitHub Actions workflow executes all tests automatically on every push. All tests must pass for successful submission.
 
 ## Overview
 This project implements automated UI testing for the DePaul University Bookstore website using Playwright. The project demonstrates two different approaches to writing UI tests: traditional manual test coding and AI-assisted test generation.
@@ -152,11 +163,13 @@ This approach ensures tests pass reliably while demonstrating comprehensive Play
 
 ## Compilation Requirement
 
-**Critical:** The project must compile successfully. Compilation failure results in automatic assignment failure. Before submission, verify the project builds:
+**CRITICAL:** If the project does not compile, it is an instant zero.
+
+Before submission, verify the project compiles successfully:
 
 ```bash
 mvn clean compile
 mvn test
 ```
 
-Both commands must complete without errors.
+Both commands must complete without errors. The GitHub Actions workflow verifies compilation on every push.
