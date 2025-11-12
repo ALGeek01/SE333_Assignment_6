@@ -78,7 +78,8 @@ public class DePaulBookstoreTest {
         // Verify page title exists
         String title = page.title();
         System.out.println("Page Title: " + title);
-        assert title != null && !title.isEmpty() : "Page title should not be empty";
+        org.junit.jupiter.api.Assertions.assertNotNull(title, "Page title should not be null");
+        org.junit.jupiter.api.Assertions.assertFalse(title.isEmpty(), "Page title should not be empty");
         
         System.out.println("✅ Website accessibility test passed");
     }
@@ -95,11 +96,11 @@ public class DePaulBookstoreTest {
         // Verify we can get the URL
         String currentUrl = page.url();
         System.out.println("Current URL: " + currentUrl);
-        assert currentUrl.contains("depaul") : "Should be on DePaul website";
+        org.junit.jupiter.api.Assertions.assertTrue(currentUrl.contains("depaul"), "Should be on DePaul website");
         
         // Verify we can take a screenshot (demonstrates Playwright functionality)
         byte[] screenshot = page.screenshot();
-        assert screenshot.length > 0 : "Screenshot should be captured";
+        org.junit.jupiter.api.Assertions.assertTrue(screenshot.length > 0, "Screenshot should be captured");
         
         System.out.println("✅ Navigation functionality test passed");
     }
@@ -119,7 +120,7 @@ public class DePaulBookstoreTest {
         // Check if we can find any links on the page
         int linkCount = page.locator("a").count();
         System.out.println("Links found: " + linkCount);
-        assert linkCount > 0 : "Page should have links";
+        org.junit.jupiter.api.Assertions.assertTrue(linkCount > 0, "Page should have links");
         
         System.out.println("✅ Element detection test passed");
     }

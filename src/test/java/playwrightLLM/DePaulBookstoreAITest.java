@@ -62,12 +62,16 @@ public class DePaulBookstoreAITest {
         page.waitForLoadState();
         
         // Verify successful navigation
-        assert page.url().contains("depaul") : "Should navigate to DePaul website";
+        String url = page.url();
+        System.out.println("Current URL: " + url);
+        assertThat(page).hasURL("https://depaul.bncollege.com/");
         
         // Verify page title
         String title = page.title();
-        assert title != null && !title.isEmpty() : "Page should have a title";
-        System.out.println("✅ Page loaded successfully with title: " + title);
+        System.out.println("Page Title: " + title);
+        org.junit.jupiter.api.Assertions.assertNotNull(title, "Page should have a title");
+        org.junit.jupiter.api.Assertions.assertFalse(title.isEmpty(), "Page title should not be empty");
+        System.out.println("✅ Page loaded successfully");
     }
     
     @Test
@@ -76,16 +80,17 @@ public class DePaulBookstoreAITest {
         System.out.println("=== Test: Basic Page Interaction ===");
         
         page.navigate("https://depaul.bncollege.com/");
+        page.waitForLoadState();
         page.waitForTimeout(2000);
         
         // Verify we can interact with the page
         Locator body = page.locator("body");
-        assert body.isVisible() : "Body element should be visible";
+        assertThat(body).isVisible();
         
         // Count elements to verify page loaded
         int elementCount = page.locator("*").count();
         System.out.println("Elements on page: " + elementCount);
-        assert elementCount > 10 : "Page should have multiple elements";
+        org.junit.jupiter.api.Assertions.assertTrue(elementCount > 10, "Page should have multiple elements");
         
         System.out.println("✅ Page interaction test passed");
     }
@@ -97,15 +102,20 @@ public class DePaulBookstoreAITest {
         
         // Test navigation
         page.navigate("https://depaul.bncollege.com/");
+        page.waitForLoadState();
         String url1 = page.url();
+        System.out.println("Navigated to: " + url1);
+        org.junit.jupiter.api.Assertions.assertTrue(url1.contains("depaul"), "Should be on DePaul website");
         
         // Test getting content
         String content = page.content();
-        assert content.length() > 0 : "Page should have content";
+        System.out.println("Page content length: " + content.length());
+        org.junit.jupiter.api.Assertions.assertTrue(content.length() > 0, "Page should have content");
         
         // Test screenshot capability
         byte[] screenshot = page.screenshot();
-        assert screenshot.length > 0 : "Should capture screenshot";
+        System.out.println("Screenshot size: " + screenshot.length + " bytes");
+        org.junit.jupiter.api.Assertions.assertTrue(screenshot.length > 0, "Should capture screenshot");
         
         System.out.println("✅ Browser functionality verified");
         System.out.println("   - Navigation: Working");
